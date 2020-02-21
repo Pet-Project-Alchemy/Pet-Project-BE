@@ -18,7 +18,7 @@ describe('user routes', () => {
   afterAll(() => {
     return mongoose.connection.close();
   });
-  
+
   it('can sign up a user ', () => {
     return request(app)
       .post('/api/v1/auth/signup')
@@ -57,14 +57,14 @@ describe('user routes', () => {
           timeNeeded: '6am-noon',
           timeAvailable: 'noon-6pm',
           image: 'blah',
-          address: 
-      {
-        _id: expect.any(String),
-        street: '1234',
-        city: 'Portland',
-        state: 'OR',
-        zipcode: '97201'
-      },
+          address:
+          {
+            _id: expect.any(String),
+            street: '1234',
+            city: 'Portland',
+            state: 'OR',
+            zipcode: '97201'
+          },
           dog: [
             {
               _id: expect.any(String),
@@ -109,7 +109,7 @@ describe('user routes', () => {
     return request(app)
       .post('/api/v1/auth/login')
       .send({
-        email:'corgi@corgi.com',
+        email: 'corgi@corgi.com',
         password: '1234'
       })
       .then(res => {
@@ -122,14 +122,14 @@ describe('user routes', () => {
           timeNeeded: '6am-noon',
           timeAvailable: 'noon-6pm',
           image: 'blah',
-          address: 
-      {
-        _id: expect.any(String),
-        street: '1234',
-        city: 'Portland',
-        state: 'OR',
-        zipcode: '97201'
-      },
+          address:
+          {
+            _id: expect.any(String),
+            street: '1234',
+            city: 'Portland',
+            state: 'OR',
+            zipcode: '97201'
+          },
           dog: [
             {
               _id: expect.any(String),
@@ -251,31 +251,32 @@ describe('user routes', () => {
       ]
     });
 
-    const agent = request.agent(app);
+    const baby = request.agent(app);
 
-    await agent
+    return baby
       .post('/api/v1/auth/login')
-      .send({ email: 'corgi@corgi.com', password: '1234' });
-
-    return agent
-      .get('/api/v1/auth/verify')
+      .send({ email: 'corgi@corgi.com', password: '1234' })
+      .then(()=>{
+        return baby
+          .get('/api/v1/auth/verify');
+      })
       .then(res => {
         expect(res.body).toEqual({
-          _id: user.id,
+          _id: user._id.toString(),
           email: 'corgi@corgi.com',
           firstName: 'baby',
           lastName: 'yoda',
           timeNeeded: '6am-noon',
           timeAvailable: 'noon-6pm',
           image: 'blah',
-          address: 
-      {
-        _id: expect.any(String),
-        street: '1234',
-        city: 'Portland',
-        state: 'OR',
-        zipcode: '97201'
-      },
+          address:
+          {
+            _id: expect.any(String),
+            street: '1234',
+            city: 'Portland',
+            state: 'OR',
+            zipcode: '97201'
+          },
           dog: [
             {
               _id: expect.any(String),
@@ -289,6 +290,6 @@ describe('user routes', () => {
           ],
           __v: 0
         });
-      }) ;
+      });
   });
 });
