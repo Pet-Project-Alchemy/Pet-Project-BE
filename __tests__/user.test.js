@@ -41,7 +41,6 @@ describe('user routes', () => {
             name: 'corgi',
             size: 'toy',
             breed: 'corgi',
-            weight: 50,
             bio: 'Im chubby',
             img: '1234'
           }
@@ -71,7 +70,6 @@ describe('user routes', () => {
               name: 'corgi',
               size: 'toy',
               breed: 'corgi',
-              weight: 50,
               bio: 'Im chubby',
               img: '1234'
             }
@@ -100,7 +98,6 @@ describe('user routes', () => {
           name: 'corgi',
           size: 'toy',
           breed: 'corgi',
-          weight: 50,
           bio: 'Im chubby',
           img: '1234'
         }
@@ -136,7 +133,6 @@ describe('user routes', () => {
               name: 'corgi',
               size: 'toy',
               breed: 'corgi',
-              weight: 50,
               bio: 'Im chubby',
               img: '1234'
             }
@@ -166,7 +162,6 @@ describe('user routes', () => {
           name: 'corgi',
           size: 'toy',
           breed: 'corgi',
-          weight: 50,
           bio: 'Im chubby',
           img: '1234'
         }
@@ -205,7 +200,6 @@ describe('user routes', () => {
           name: 'corgi',
           size: 'toy',
           breed: 'corgi',
-          weight: 50,
           bio: 'Im chubby',
           img: '1234'
         }
@@ -244,7 +238,6 @@ describe('user routes', () => {
           name: 'corgi',
           size: 'toy',
           breed: 'corgi',
-          weight: 50,
           bio: 'Im chubby',
           img: '1234'
         }
@@ -283,7 +276,6 @@ describe('user routes', () => {
               name: 'corgi',
               size: 'toy',
               breed: 'corgi',
-              weight: 50,
               bio: 'Im chubby',
               img: '1234'
             }
