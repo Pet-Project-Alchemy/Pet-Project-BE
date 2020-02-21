@@ -18,39 +18,129 @@ describe('user routes', () => {
   afterAll(() => {
     return mongoose.connection.close();
   });
-
+  
   it('can sign up a user ', () => {
     return request(app)
       .post('/api/v1/auth/signup')
       .send({
         email: 'corgi@corgi.com',
-        password: 'secure'
+        password: '1234',
+        firstName: 'baby',
+        lastName: 'yoda',
+        timeNeeded: '6am-noon',
+        timeAvailable: 'noon-6pm',
+        image: 'blah',
+        address: {
+          street: '1234',
+          city: 'Portland',
+          state: 'OR',
+          zipcode: '97201'
+        },
+        dog: [
+          {
+            name: 'corgi',
+            size: 'toy',
+            breed: 'corgi',
+            weight: 50,
+            bio: 'Im chubby',
+            img: '1234'
+          }
+        ]
       })
       .then(res => {
         expect(res.header['set-cookie'][0]).toEqual(expect.stringContaining('session='));
         expect(res.body).toEqual({
           _id: expect.any(String),
           email: 'corgi@corgi.com',
+          firstName: 'baby',
+          lastName: 'yoda',
+          timeNeeded: '6am-noon',
+          timeAvailable: 'noon-6pm',
+          image: 'blah',
+          address: 
+      {
+        _id: expect.any(String),
+        street: '1234',
+        city: 'Portland',
+        state: 'OR',
+        zipcode: '97201'
+      },
+          dog: [
+            {
+              _id: expect.any(String),
+              name: 'corgi',
+              size: 'toy',
+              breed: 'corgi',
+              weight: 50,
+              bio: 'Im chubby',
+              img: '1234'
+            }
+          ],
           __v: 0
         });
       });
   });
   it('can login a user ', async() => {
-    const user = await User.create({
-      email:'corgi@corgi.com',
-      password: 'secure'
+    await User.create({
+      email: 'corgi@corgi.com',
+      password: '1234',
+      firstName: 'baby',
+      lastName: 'yoda',
+      timeNeeded: '6am-noon',
+      timeAvailable: 'noon-6pm',
+      image: 'blah',
+      address: {
+        street: '1234',
+        city: 'Portland',
+        state: 'OR',
+        zipcode: '97201'
+      },
+      dog: [
+        {
+          name: 'corgi',
+          size: 'toy',
+          breed: 'corgi',
+          weight: 50,
+          bio: 'Im chubby',
+          img: '1234'
+        }
+      ]
     });
     return request(app)
       .post('/api/v1/auth/login')
-      .send({ 
+      .send({
         email:'corgi@corgi.com',
-        password: 'secure'
+        password: '1234'
       })
       .then(res => {
         expect(res.header['set-cookie'][0]).toEqual(expect.stringContaining('session='));
         expect(res.body).toEqual({
-          _id: user.id,
+          _id: expect.any(String),
           email: 'corgi@corgi.com',
+          firstName: 'baby',
+          lastName: 'yoda',
+          timeNeeded: '6am-noon',
+          timeAvailable: 'noon-6pm',
+          image: 'blah',
+          address: 
+      {
+        _id: expect.any(String),
+        street: '1234',
+        city: 'Portland',
+        state: 'OR',
+        zipcode: '97201'
+      },
+          dog: [
+            {
+              _id: expect.any(String),
+              name: 'corgi',
+              size: 'toy',
+              breed: 'corgi',
+              weight: 50,
+              bio: 'Im chubby',
+              img: '1234'
+            }
+          ],
           __v: 0
         });
       });
@@ -58,8 +148,29 @@ describe('user routes', () => {
 
   it('fails to login a user with a bad email', async() => {
     await User.create({
-      email: 'test@test.com',
-      password: 'password'
+      email: 'corgi@corgi.com',
+      password: '1234',
+      firstName: 'baby',
+      lastName: 'yoda',
+      timeNeeded: '6am-noon',
+      timeAvailable: 'noon-6pm',
+      image: 'blah',
+      address: {
+        street: '1234',
+        city: 'Portland',
+        state: 'OR',
+        zipcode: '97201'
+      },
+      dog: [
+        {
+          name: 'corgi',
+          size: 'toy',
+          breed: 'corgi',
+          weight: 50,
+          bio: 'Im chubby',
+          img: '1234'
+        }
+      ]
     });
 
     return request(app)
@@ -76,8 +187,29 @@ describe('user routes', () => {
 
   it('fails to login a user with a bad password', async() => {
     await User.create({
-      email: 'test@test.com',
-      password: 'password'
+      email: 'corgi@corgi.com',
+      password: '1234',
+      firstName: 'baby',
+      lastName: 'yoda',
+      timeNeeded: '6am-noon',
+      timeAvailable: 'noon-6pm',
+      image: 'blah',
+      address: {
+        street: '1234',
+        city: 'Portland',
+        state: 'OR',
+        zipcode: '97201'
+      },
+      dog: [
+        {
+          name: 'corgi',
+          size: 'toy',
+          breed: 'corgi',
+          weight: 50,
+          bio: 'Im chubby',
+          img: '1234'
+        }
+      ]
     });
 
     return request(app)
@@ -94,22 +226,67 @@ describe('user routes', () => {
 
   it('can verify if a user is logged in', async() => {
     const user = await User.create({
-      email: 'test@test.com',
-      password: 'password'
+      email: 'corgi@corgi.com',
+      password: '1234',
+      firstName: 'baby',
+      lastName: 'yoda',
+      timeNeeded: '6am-noon',
+      timeAvailable: 'noon-6pm',
+      image: 'blah',
+      address: {
+        street: '1234',
+        city: 'Portland',
+        state: 'OR',
+        zipcode: '97201'
+      },
+      dog: [
+        {
+          name: 'corgi',
+          size: 'toy',
+          breed: 'corgi',
+          weight: 50,
+          bio: 'Im chubby',
+          img: '1234'
+        }
+      ]
     });
 
     const agent = request.agent(app);
 
     await agent
       .post('/api/v1/auth/login')
-      .send({ email: 'test@test.com', password: 'password' });
+      .send({ email: 'corgi@corgi.com', password: '1234' });
 
     return agent
       .get('/api/v1/auth/verify')
       .then(res => {
         expect(res.body).toEqual({
           _id: user.id,
-          email: 'test@test.com',
+          email: 'corgi@corgi.com',
+          firstName: 'baby',
+          lastName: 'yoda',
+          timeNeeded: '6am-noon',
+          timeAvailable: 'noon-6pm',
+          image: 'blah',
+          address: 
+      {
+        _id: expect.any(String),
+        street: '1234',
+        city: 'Portland',
+        state: 'OR',
+        zipcode: '97201'
+      },
+          dog: [
+            {
+              _id: expect.any(String),
+              name: 'corgi',
+              size: 'toy',
+              breed: 'corgi',
+              weight: 50,
+              bio: 'Im chubby',
+              img: '1234'
+            }
+          ],
           __v: 0
         });
       }) ;
