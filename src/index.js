@@ -17,8 +17,13 @@ app.use(express.static(publicDirectoryPath));
 io.on('connection', (socket) => {
   console.log('New Websocket Connection');
 
-  socket.emit('message', generateMessage('Welcome!'));
-  socket.broadcast.emit('message', generateMessage('A new user has joined.'));
+  socket.on('join', ({ username, room }) => {
+    //events only to specific  io.to.emit emits event to all in specific room \ socket.broadcast.to.emit
+    socket.join(room);
+
+    socket.emit('message', generateMessage('Welcome!'));
+    socket.broadcast.to(room).emit('message', generateMessage(`${username} has joined.`));
+  });
 
   socket.on('sendMessage', (message, callback) => {
 
@@ -27,7 +32,7 @@ io.on('connection', (socket) => {
     if(filter.isProfane(message)) {
       return callback('Profanity is not allowed.');
     }
-    io.emit('message', generateMessage(message));
+    io.to('sd').emit('message', generateMessage(message));
     callback();
   });
 
