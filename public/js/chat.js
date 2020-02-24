@@ -18,7 +18,6 @@ const autoscroll = () => {
   const newMessageHeight = $newMessage.offsetHeight + newMessageMargin;
   const visibleHeight = $messages.offsetHeight;
   const containerHeight = $messages.scrollHeight;
-  // How far have I scrolled?
   const scrollOffset = $messages.scrollTop + visibleHeight;
   if(containerHeight - newMessageHeight <= scrollOffset) {
     $messages.scrollTop = $messages.scrollHeight;
@@ -26,7 +25,6 @@ const autoscroll = () => {
 };
 
 socket.on('message', (message) => {
-  console.log(message);
   const html = Mustache.render(messageTemplate, {
     username: message.username, 
     message: message.text,
@@ -37,7 +35,6 @@ socket.on('message', (message) => {
 });
 
 socket.on('locationMessage', (message) => {
-  console.log(message);
   const html = Mustache.render(locationMessageTemplate, {
     username: message.username,
     url: message.url,
@@ -59,7 +56,6 @@ $messageForm.addEventListener('submit', (event) => {
     if(error) {
       return console.log(error);
     }
-    console.log('Message Delivered!');
   });
 });
 
@@ -67,15 +63,12 @@ $sendLocationButton.addEventListener('click', () => {
   if(!navigator.geolocation) {
     return alert('Geolocation is not supported by your browser.');
   }
-  
   $sendLocationButton.setAttribute('disabled', 'disabled'); 
-
   navigator.geolocation.getCurrentPosition((position) => {
     socket.emit('sendLocation', {
       latitude: position.coords.latitude,
       longitude: position.coords.longitude
     }, () => {
-      console.log('Location Shared');
       $sendLocationButton.removeAttribute('disabled'); 
     });
   });
@@ -84,6 +77,6 @@ $sendLocationButton.addEventListener('click', () => {
 socket.emit('join', { username, room }, (error) => {
   if(error) {
     alert(error);
-    window.location.href = '/';
+    location.href = '/';
   } 
 });
