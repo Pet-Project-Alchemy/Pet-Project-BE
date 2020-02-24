@@ -29,15 +29,18 @@ const removeUser = (id) => {
   }
 };
 
-addUser ({
-  id: 99,
-  username: 'Sam',
-  room: 'sd'
-});
-console.log(users)
-;
+const getUser = (id) => {
+  return users.find((user) => user.id === id);
+};
 
-const removedUser = removeUser(99);
+const getUsersInRoom = (room) => {
+  return users.filter((user) => user.room === room);
+};
 
-console.log(removedUser)
-console.log(users)
+module.exports = {
+  addUser,
+  removeUser,
+  getUser,
+  getUsersInRoom
+};
+
