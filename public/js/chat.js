@@ -1,83 +1,84 @@
-const socket = io();
-const $messageForm = document.querySelector('#message-form');
-const $messageFromInput = $messageForm.querySelector('input');
-const $messageFormButton = $messageForm.querySelector('button');
-const $sendLocationButton = document.querySelector('#send-location');
-const $messages = document.querySelector('#messages');
+// const socket = io();
+// const $messageForm = document.querySelector('#message-form');
+// const $messageFromInput = $messageForm.querySelector('input');
+// const $messageFormButton = $messageForm.querySelector('button');
+// const $sendLocationButton = document.querySelector('#send-location');
+// const $messages = document.querySelector('#messages');
 
-const messageTemplate = document.querySelector('#message-template').innerHTML;
-const locationMessageTemplate = document.querySelector('#location-message-template').innerHTML;
+// const messageTemplate = document.querySelector('#message-template').innerHTML;
+// const locationMessageTemplate = document.querySelector('#location-message-template').innerHTML;
 
-const { username, room } = Qs.parse(location.search, { ignoreQueryPrefix: true });
+// const { username, room } = Qs.parse(location.search, { ignoreQueryPrefix: true });
 
-// use ref to replace message 
-const autoscroll = () => {
-  const $newMessage = $messages.lastElementChild;
-  // Height of the new message
-  const newMessageStyles = getComputedStyle($newMessage);
-  const newMessageMargin = parseInt(newMessageStyles.marginBottom);
-  const newMessageHeight = $newMessage.offsetHeight + newMessageMargin;
-  const visibleHeight = $messages.offsetHeight;
-  const containerHeight = $messages.scrollHeight;
-  const scrollOffset = $messages.scrollTop + visibleHeight;
-  if(containerHeight - newMessageHeight <= scrollOffset) {
-    $messages.scrollTop = $messages.scrollHeight;
-  }
-};
+// // use ref to replace message 
+// const autoscroll = () => {
+//   this.myRef = React.createRef();
+//   const myRef.newMessage = myRef.messages.lastElementChild;
+//   // Height of the new message
+//   const newMessageStyles = getComputedStyle(myRef.newMessage);
+//   const newMessageMargin = parseInt(newMessageStyles.marginBottom);
+//   const newMessageHeight = myRef.newMessage.offsetHeight + newMessageMargin;
+//   const visibleHeight = myRef.messages.offsetHeight;
+//   const containerHeight = myRef.messages.scrollHeight;
+//   const scrollOffset = myRef.messages.scrollTop + visibleHeight;
+//   if(containerHeight - newMessageHeight <= scrollOffset) {
+//     myRef.messages.scrollTop = myRef.messages.scrollHeight;
+//   }
+// };
 
-socket.on('message', (message) => {
-  const html = Mustache.render(messageTemplate, {
-    username: message.username, 
-    message: message.text,
-    createdAt: moment(message.createdAt).format('MMM Do h:mm a')
-  });
-  $messages.insertAdjacentHTML('beforeend', html);
-  autoscroll();
-});
+// socket.on('message', (message) => {
+//   const html = Mustache.render(messageTemplate, {
+//     username: message.username, 
+//     message: message.text,
+//     createdAt: moment(message.createdAt).format('MMM Do h:mm a')
+//   });
+//   $messages.insertAdjacentHTML('beforeend', html);
+//   autoscroll();
+// });
 
-socket.on('locationMessage', (message) => {
-  const html = Mustache.render(locationMessageTemplate, {
-    username: message.username,
-    url: message.url,
-    createdAt: moment(message.createdAt).format('MMM Do h:mm a')
-  });
-  $messages.insertAdjacentHTML('beforeend', html);
-  autoscroll();
-});
+// socket.on('locationMessage', (message) => {
+//   const html = Mustache.render(locationMessageTemplate, {
+//     username: message.username,
+//     url: message.url,
+//     createdAt: moment(message.createdAt).format('MMM Do h:mm a')
+//   });
+//   $messages.insertAdjacentHTML('beforeend', html);
+//   autoscroll();
+// });
  
-$messageForm.addEventListener('submit', (event) => {
-  event.preventDefault();
-  $messageFormButton.setAttribute('disabled', 'disabled'); 
-  const message = event.target.elements.message.value;
+// $messageForm.addEventListener('submit', (event) => {
+//   event.preventDefault();
+//   $messageFormButton.setAttribute('disabled', 'disabled'); 
+//   const message = event.target.elements.message.value;
 
-  socket.emit('sendMessage', message, (error) => {
-    $messageFormButton.removeAttribute('disabled');
-    $messageFromInput.value = ' ';
-    $messageFromInput.focus();
-    if(error) {
-      return console.log(error);
-    }
-  });
-});
+//   socket.emit('sendMessage', message, (error) => {
+//     $messageFormButton.removeAttribute('disabled');
+//     $messageFromInput.value = ' ';
+//     $messageFromInput.focus();
+//     if(error) {
+//       return console.log(error);
+//     }
+//   });
+// });
 
-$sendLocationButton.addEventListener('click', () => {
-  if(!navigator.geolocation) {
-    return alert('Geolocation is not supported by your browser.');
-  }
-  $sendLocationButton.setAttribute('disabled', 'disabled'); 
-  navigator.geolocation.getCurrentPosition((position) => {
-    socket.emit('sendLocation', {
-      latitude: position.coords.latitude,
-      longitude: position.coords.longitude
-    }, () => {
-      $sendLocationButton.removeAttribute('disabled'); 
-    });
-  });
-});
+// $sendLocationButton.addEventListener('click', () => {
+//   if(!navigator.geolocation) {
+//     return alert('Geolocation is not supported by your browser.');
+//   }
+//   $sendLocationButton.setAttribute('disabled', 'disabled'); 
+//   navigator.geolocation.getCurrentPosition((position) => {
+//     socket.emit('sendLocation', {
+//       latitude: position.coords.latitude,
+//       longitude: position.coords.longitude
+//     }, () => {
+//       $sendLocationButton.removeAttribute('disabled'); 
+//     });
+//   });
+// });
 
-socket.emit('join', { username, room }, (error) => {
-  if(error) {
-    alert(error);
-    location.href = '/';
-  } 
-});
+// socket.emit('join', { username, room }, (error) => {
+//   if(error) {
+//     alert(error);
+//     location.href = '/';
+//   } 
+// });
