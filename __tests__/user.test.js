@@ -262,6 +262,8 @@ describe('user routes', () => {
           timeNeeded: '6am-noon',
           timeAvailable: 'noon-6pm',
           image: 'blah',
+          exp: expect.any(Number),
+          iat: expect.any(Number),
           address:
           {
             _id: expect.any(String),
