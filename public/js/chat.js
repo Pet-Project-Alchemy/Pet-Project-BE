@@ -10,6 +10,7 @@ const locationMessageTemplate = document.querySelector('#location-message-templa
 
 const { username, room } = Qs.parse(location.search, { ignoreQueryPrefix: true });
 
+// use ref to replace message 
 const autoscroll = () => {
   const $newMessage = $messages.lastElementChild;
   // Height of the new message

@@ -1,3 +1,5 @@
+// moved functionality of this file to app.js
+
 const path = require('path');
 const http = require('http');
 const express = require('express');
@@ -11,12 +13,13 @@ const io = socketio(server);
 
 const port = process.env.PORT || 3000;
 const publicDirectoryPath = path.join(__dirname, '../public');
-const { addUser, removeUser, getUser, getUsersInRoom } = require('./utils/users'); 
+const { addUser, removeUser, getUser } = require('./utils/users'); 
 app.use(express.static(publicDirectoryPath));
 
 io.on('connection', (socket) => {
-  console.log('New Websocket Connection');
-
+  socket.on('hi', (data) => {
+    console.log(data);
+  });
   socket.on('join', ({ username, room }, callback) => {
     const { error, user } = addUser({ id: socket.id, username, room });
     if(error) {
