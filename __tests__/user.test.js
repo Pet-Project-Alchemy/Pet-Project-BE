@@ -51,16 +51,6 @@ describe('user routes', () => {
         breed: 'corgi',
         dogImage: '1234',
         dogBio: 'Im chubby'
-        //img: '1234',
-        // dog: [
-        //   {
-        //     name: 'corgi',
-        //     size: 'toy',
-        //     breed: 'corgi',
-        //     bio: 'Im chubby',
-        //     img: '1234'
-        //   }
-        // ]
       })
       .then(res => {
         expect(res.header['set-cookie'][0]).toEqual(expect.stringContaining('session='));	
