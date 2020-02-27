@@ -6,6 +6,17 @@ const connect = require('../lib/utils/connect');
 const mongoose = require('mongoose');
 const User = require('../lib/models/User');
 
+jest.mock('../lib/middleware/profile', () => jest.fn(
+  (req, res, next) => {
+    
+    req.files = { 
+      profileImage: [{ location: 'blah' }], 
+      dogImage: [{ location: 'blah' }]
+    };
+    next();
+  }
+));
+
 describe('user routes', () => {
   beforeAll(() => {
     connect();
@@ -47,7 +58,7 @@ describe('user routes', () => {
         ]
       })
       .then(res => {
-        expect(res.header['set-cookie'][0]).toEqual(expect.stringContaining('session='));
+        expect(res.header['set-cookie'][0]).toEqual(expect.stringContaining('session='));	
         expect(res.body).toEqual({
           _id: expect.any(String),
           email: 'corgi@corgi.com',
@@ -78,6 +89,7 @@ describe('user routes', () => {
         });
       });
   });
+  
   it('can login a user ', async() => {
     await User.create({
       email: 'corgi@corgi.com',
