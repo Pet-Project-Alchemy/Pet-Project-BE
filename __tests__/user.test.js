@@ -38,24 +38,29 @@ describe('user routes', () => {
         password: '1234',
         firstName: 'baby',
         lastName: 'yoda',
+        bio: 'Im chubby',
+        image: 'blah',
         timeNeeded: '6am-noon',
         timeAvailable: 'noon-6pm',
-        image: 'blah',
-        address: {
-          street: '1234',
-          city: 'Portland',
-          state: 'OR',
-          zipcode: '97201'
-        },
-        dog: [
-          {
-            name: 'corgi',
-            size: 'toy',
-            breed: 'corgi',
-            bio: 'Im chubby',
-            img: '1234'
-          }
-        ]
+        street: '1234',
+        city: 'Portland',
+        state: 'OR',
+        zipcode: '97201',
+        dogName: 'corgi',
+        dogSize: 'toy',
+        breed: 'corgi',
+        dogImage: '1234',
+        dogBio: 'Im chubby'
+        //img: '1234',
+        // dog: [
+        //   {
+        //     name: 'corgi',
+        //     size: 'toy',
+        //     breed: 'corgi',
+        //     bio: 'Im chubby',
+        //     img: '1234'
+        //   }
+        // ]
       })
       .then(res => {
         expect(res.header['set-cookie'][0]).toEqual(expect.stringContaining('session='));	
