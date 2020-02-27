@@ -3,7 +3,7 @@ require('./lib/utils/connect')();
 
 const app = require('./lib/app');
 // Backend port change for testing
-const PORT = process.env.PORT || 7891;
+const PORT = process.env.PORT || 7890;
 
 app.listen(PORT, () => {
   // eslint-disable-next-line no-console
