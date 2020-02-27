@@ -77,7 +77,7 @@ describe('user routes', () => {
               size: 'toy',
               breed: 'corgi',
               bio: 'Im chubby',
-              img: '1234'
+              img: 'blah'
             }
           ],
           __v: 0
