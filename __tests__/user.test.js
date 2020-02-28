@@ -8,7 +8,6 @@ const User = require('../lib/models/User');
 
 jest.mock('../lib/middleware/profile', () => jest.fn(
   (req, res, next) => {
-    
     req.files = { 
       profileImage: [{ location: 'blah' }], 
       dogImage: [{ location: 'blah' }]
