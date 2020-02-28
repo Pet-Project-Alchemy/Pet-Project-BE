@@ -2,7 +2,7 @@ require('dotenv').config();
 require('./lib/utils/connect')();
 
 const app = require('./lib/app');
-
+// Backend port change for testing
 const PORT = process.env.PORT || 7890;
 
 app.listen(PORT, () => {
