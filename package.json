@@ -23,7 +23,7 @@
     "supertest": "^4.0.2"
   },
   "dependencies": {
-    "aws-sdk": "^2.625.0",
+    "aws-sdk": "^2.814.0",
     "bcryptjs": "^2.4.3",
     "cookie-parser": "^1.4.4",
     "cors": "^2.8.5",
