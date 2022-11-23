@@ -35,6 +35,6 @@
     "multer-s3": "^2.9.0",
     "path": "^0.12.7",
     "superagent": "^5.2.2",
-    "socket.io": "^2.0.4"
+    "socket.io": "^2.5.0"
   }
 }
